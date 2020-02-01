@@ -11,7 +11,7 @@ enum GameState
     GameOver
 }
 
-enum PlantType
+public enum PlantType
 {
     Staple
 }
@@ -72,7 +72,7 @@ public class SceneManager : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-
+            stapleMachine.PressStaple();
         }
     }
 }

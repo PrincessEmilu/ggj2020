@@ -9,8 +9,9 @@ public class Plant : MonoBehaviour
     private List<Vector3> waypointList;
     private PlantType plantType;
     private bool isRepaired;
+    private bool isBroken;
 
-    private const float safeDistance = 0.5f; // I have no clue what to call this variable
+    private const float safeDistance = 0.01f; // I have no clue what to call this variable
 
     // Setup plant type
     public void Setup(List<Vector3> waypoints)
@@ -22,6 +23,7 @@ public class Plant : MonoBehaviour
 
         currentWaypoint = 0;
         isRepaired = false;
+        isBroken = false;
     }
 
     // Move towards the next waypoint
@@ -33,6 +35,23 @@ public class Plant : MonoBehaviour
         if (Vector3.Distance(transform.position,waypointList[currentWaypoint + 1]) < safeDistance)
         {
             currentWaypoint++;
+        }
+    }
+
+    // Set state of plant based on the tool type of the collider
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Staple>().machineType == plantType &&
+            !isBroken)
+        {
+            isRepaired = true;
+            Debug.Log("Plant repaired");
+        }
+
+        else
+        {
+            isBroken = true;
+            Debug.Log("Plant broken");
         }
     }
 }
