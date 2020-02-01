@@ -6,19 +6,19 @@
 Morgan Hamilton
 
 ### Concept Art
-Arka Tu
-Savvy Blaum
+Arka Tu  
+Savvy Blaum  
 
 ### 3D Art
 Morgan Hamilton
 
 ### Music Design
-Savvy Blaum
+Savvy Blaum  
 Ray Axmann
 
 ### Game Design
 Emily Horton
 
 ### Programming
-Emily Horton
+Emily Horton  
 Ray Axmann
