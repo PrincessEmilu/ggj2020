@@ -8,8 +8,9 @@ public class Plant : MonoBehaviour
 
     private List<Vector3> waypointList;
     private PlantType plantType;
-    private bool isRepaired;
+    public bool isRepaired;
     private bool isBroken;
+    public bool hasPoint; // This is a dumb way of checking if the player gets a point from this plant
 
     private const float safeDistance = 0.01f; // I have no clue what to call this variable
 
@@ -42,16 +43,16 @@ public class Plant : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Staple>().machineType == plantType &&
-            !isBroken)
+            !isBroken &&
+            !isRepaired)
         {
             isRepaired = true;
-            Debug.Log("Plant repaired");
+            hasPoint = true;
         }
 
         else
         {
             isBroken = true;
-            Debug.Log("Plant broken");
         }
     }
 }

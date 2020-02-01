@@ -12,9 +12,14 @@ public class ConveyorBelt : MonoBehaviour
     private float spawnTimer = 0;
     private float spawnTimerMax = 60;
 
+    private int tempScore;
+    private int tempLostLives;
+
     public void Setup()
     {
         plantList = new List<GameObject>();
+        tempScore = 0;
+        tempLostLives = 0;
     }
 
     // Spawn plants based on a timer
@@ -47,12 +52,51 @@ public class ConveyorBelt : MonoBehaviour
     {
         for (int i = 0; i < plantList.Count; i++)
         {
-            if (plantList[i].GetComponent<Plant>().currentWaypoint == waypointList.Count - 1)
+            GameObject plantObject = plantList[i];
+            if (plantObject.GetComponent<Plant>().currentWaypoint == waypointList.Count - 1)
             {
-                Destroy(plantList[i]);
+
+                if (!plantObject.GetComponent<Plant>().isRepaired)
+                {
+                    tempLostLives++;
+                }
+
+                Destroy(plantObject);
                 plantList.RemoveAt(i);
                 i--;
             }
         }
+    }
+    public void RemoveAllPlants()
+    {
+        foreach(GameObject plant in plantList)
+        {
+            Destroy(plant);
+        }
+
+        plantList.Clear();
+    }
+
+    public int UpdateScore()
+    {
+        foreach (GameObject plant in plantList)
+        {
+            if (plant.GetComponent<Plant>().hasPoint)
+            {
+                tempScore++;
+                plant.GetComponent<Plant>().hasPoint = false;
+            }
+        }
+
+        int returnValue = tempScore;
+        tempScore = 0;
+        return returnValue;
+    }
+
+    public int UpdateLives()
+    {
+        int returnValue = tempLostLives;
+        tempLostLives = 0;
+        return returnValue;
     }
 }
