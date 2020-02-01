@@ -6,11 +6,11 @@ public class ConveyorBelt : MonoBehaviour
 {
     public GameObject plantPrefab;
     public List<Vector3> waypointList;
-    public float beltSpeed = 0.1f;
+    public float beltSpeed = 0.05f;
 
     private List<GameObject> plantList;
     private float spawnTimer = 0;
-    private float spawnTimerMax = 60;
+    private float spawnTimerMax = 100;
 
     private int tempScore;
     private int tempLostLives;

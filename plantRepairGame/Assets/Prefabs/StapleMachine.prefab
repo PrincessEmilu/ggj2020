@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 1648402703140790800}
   - component: {fileID: 1438479608421214994}
   - component: {fileID: 580429419504478920}
-  - component: {fileID: 6011274303348882634}
+  - component: {fileID: 1462532187902998236}
   m_Layer: 0
   m_Name: staple
   m_TagString: Untagged
@@ -185,7 +185,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6011274303348882634
+--- !u!114 &1462532187902998236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4530653484643070990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a6209c1ae658ba44bdf0e45a2c2f158, type: 3}
+  m_Script: {fileID: 11500000, guid: 0707c404e4073404887bc4f198969a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   machineType: 0

@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
+    public List<GameObject> listBrokenModels;
+    public List<GameObject> listRepairedModels;
+
     public int currentWaypoint;
+
+    private GameObject brokenModel;
+    private GameObject repairedModel;
+
+    private int typeIndex;
 
     private List<Vector3> waypointList;
     private PlantType plantType;
@@ -17,14 +25,34 @@ public class Plant : MonoBehaviour
     // Setup plant type
     public void Setup(List<Vector3> waypoints)
     {
-        // TODO: A different way to set plant type?
-        plantType = PlantType.Staple;
+        // Randomly decide plant type
+        typeIndex = Random.Range(0, listBrokenModels.Count);
+        brokenModel = listBrokenModels[typeIndex];
+        repairedModel = listRepairedModels[typeIndex];
+        plantType = (PlantType)typeIndex;
+
+        // Deactivate modesl
+        for (int i =0; i < listBrokenModels.Count; i++)
+        {
+            if (i != typeIndex)
+            {
+                listBrokenModels[i].SetActive(false);
+            }
+        }
+
+        foreach (GameObject model in listRepairedModels)
+        {
+            model.SetActive(false);
+        }
 
         this.waypointList = waypoints;
 
         currentWaypoint = 0;
         isRepaired = false;
         isBroken = false;
+
+        // Disable fixed model
+        repairedModel.SetActive(false);
     }
 
     // Move towards the next waypoint
@@ -42,10 +70,13 @@ public class Plant : MonoBehaviour
     // Set state of plant based on the tool type of the collider
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Staple>().machineType == plantType &&
+        if (other.gameObject.GetComponent<ToolType>().machineType == plantType &&
             !isBroken &&
             !isRepaired)
         {
+            brokenModel.SetActive(false);
+            repairedModel.SetActive(true);
+
             isRepaired = true;
             hasPoint = true;
         }

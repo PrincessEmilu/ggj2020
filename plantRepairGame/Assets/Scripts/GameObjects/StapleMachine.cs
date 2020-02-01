@@ -24,6 +24,8 @@ public class StapleMachine : MonoBehaviour
 
     public void Start()
     {
+        staple.GetComponent<ToolType>().SetType(PlantType.Staple);
+
         machineType = PlantType.Staple;
         stapleState = StapleState.Rest;
 
