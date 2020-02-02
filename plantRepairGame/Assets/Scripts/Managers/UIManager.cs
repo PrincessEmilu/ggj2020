@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour
 {
     public Texture titleScreen;
 
+    public Canvas pauseMenu;
+
     private GameState currentState;
     private GUIStyle defaultStyle;
     private GUIContent titleContent;
@@ -40,6 +42,19 @@ public class UIManager : MonoBehaviour
         this.lives = lives;
     }
 
+    public void TogglePause()
+    {
+        if (currentState != GameState.Paused)
+        {
+            currentState = GameState.Paused;
+            pauseMenu.enabled = true;
+        }
+        else
+        {
+            currentState = GameState.Playing;
+        }
+    }
+
     private void OnGUI()
     {
         switch (currentState)
@@ -53,6 +68,10 @@ public class UIManager : MonoBehaviour
 
             case GameState.Playing:
                 GUI.Box(new Rect(0, 0, Screen.width / 3, Screen.height / 3), "Score: " + score + "\nLives: " + lives, defaultStyle);
+                break;
+
+            case GameState.Paused:
+
                 break;
 
             case GameState.GameOver:

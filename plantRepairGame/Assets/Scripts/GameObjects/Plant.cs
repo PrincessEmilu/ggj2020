@@ -25,25 +25,7 @@ public class Plant : MonoBehaviour
     // Setup plant type
     public void Setup(List<Vector3> waypoints)
     {
-        // Randomly decide plant type
-        typeIndex = Random.Range(0, listBrokenModels.Count);
-        brokenModel = listBrokenModels[typeIndex];
-        repairedModel = listRepairedModels[typeIndex];
-        plantType = (PlantType)typeIndex;
-
-        // Deactivate modesl
-        for (int i =0; i < listBrokenModels.Count; i++)
-        {
-            if (i != typeIndex)
-            {
-                listBrokenModels[i].SetActive(false);
-            }
-        }
-
-        foreach (GameObject model in listRepairedModels)
-        {
-            model.SetActive(false);
-        }
+        SetPlantType();
 
         this.waypointList = waypoints;
 
@@ -85,5 +67,41 @@ public class Plant : MonoBehaviour
         {
             isBroken = true;
         }
+    }
+
+    // Randomly decide plant type
+    // Okay, so, this is janky. I know. But let me explain.
+    // All plants essentially have the exact same behavior.
+    // Legit. There's not change in behavior at all.
+    // So, I figured, lets just like, keep a list of all possible models they could use, then when the plant is created, set the appropriate models and get rid of the rest
+    // It works. It's janky. Not sure if it is scalable but it seemed the simplest method at the time and game jam time is running out
+    private void SetPlantType()
+    {
+        typeIndex = Random.Range(0, listBrokenModels.Count);
+        brokenModel = listBrokenModels[typeIndex];
+        repairedModel = listRepairedModels[typeIndex];
+        plantType = (PlantType)typeIndex;
+
+        // Destroy models
+        for (int i = 0; i < listBrokenModels.Count; i++)
+        {
+            if (i != typeIndex)
+            {
+                Destroy(listBrokenModels[i]);
+            }
+        }
+
+        // Destroy models
+        for (int i = 0; i < listBrokenModels.Count; i++)
+        {
+            if (i != typeIndex)
+            {
+                Destroy(listRepairedModels[i]);
+            }
+        }
+
+        // Clear the lists we don't need them
+        listBrokenModels.Clear();
+        listRepairedModels.Clear();
     }
 }

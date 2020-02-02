@@ -70,15 +70,28 @@ public class SceneManager : MonoBehaviour
                 break;
 
             case GameState.Playing:
+
                 UpdateConveyor();
                 UseTools();
                 UpdateUI();
 
+                // Out of lives, game over
                 if (lives <= 0)
                 {
                     currentState = GameState.GameOver;
                     uiManager.SetState(currentState);
                 }
+
+                // Toggle pause menu
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    currentState = GameState.Paused;
+                    uiManager.TogglePause();
+                }
+                break;
+
+            case GameState.Paused:
+                // I'm actually not sure what happens here because 
                 break;
 
             case GameState.GameOver:
