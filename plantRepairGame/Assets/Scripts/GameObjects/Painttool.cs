@@ -31,7 +31,7 @@ public class Painttool : MonoBehaviour
         extendSpeed = 0.1f;
         retractSpeed = 0.2f;
         startPosition = transform.position;
-        endPosition = new Vector3(startPosition.x, startPosition.y - 2.5f, startPosition.z);
+        endPosition = new Vector3(startPosition.x, startPosition.y - 1.5f, startPosition.z);
     }
 
     // Move staple towards endpoint
