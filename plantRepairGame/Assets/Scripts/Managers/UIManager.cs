@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
         scoreStyle.normal.textColor = Color.white;
 
 
-        titleContent = new GUIContent("Press SPACE to play", titleScreen);
+       
     }
 
     public void SetState(GameState gameState)
@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour
             case GameState.Title:
                 GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
                 GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), titleScreen, ScaleMode.StretchToFill);
-                GUI.Label(new Rect(Screen.width / 2, Screen.height - Screen.height / 3, 200, 100), "Press SPACE to play", defaultStyle);
+                
                 GUI.EndClip();
                 break;
 
