@@ -39,7 +39,7 @@ public class SceneManager : MonoBehaviour
     {
         // Game states
         currentState = GameState.Title;
-        lives = 3;
+        lives = 5;
         score = 0;
 
         // Get managers
@@ -131,6 +131,8 @@ public class SceneManager : MonoBehaviour
 
         score += conveyorBelt.UpdateScore();
         lives -= conveyorBelt.UpdateLives();
+
+        conveyorBelt.ScaleDifficulty(score);
     }
 
     // Controls the various tools

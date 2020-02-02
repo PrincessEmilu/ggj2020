@@ -6,20 +6,31 @@ public class ConveyorBelt : MonoBehaviour
 {
     public GameObject plantPrefab;
     public List<Vector3> waypointList;
-    public float beltSpeed = 0.05f;
 
     private List<GameObject> plantList;
-    private float spawnTimer = 0;
-    private float spawnTimerMax = 100;
+
+    private float beltSpeedStart = 0.05f;
+    private float beltSpeed;
+
+    private float spawnTimer;
+    private float spawnTimerMax;
+    private float spawnTimerMaxStart = 140;
+
 
     private int tempScore;
     private int tempLostLives;
 
+    // Init data structures and gameplay variables
     public void Setup()
     {
         plantList = new List<GameObject>();
         tempScore = 0;
         tempLostLives = 0;
+
+        // Default speeds
+        spawnTimerMax = spawnTimerMaxStart;
+        spawnTimer = spawnTimerMax - 1;
+        beltSpeed = beltSpeedStart;
     }
 
     // Spawn plants based on a timer
@@ -27,12 +38,14 @@ public class ConveyorBelt : MonoBehaviour
     {
         spawnTimer += 1;
 
-        if (spawnTimer == spawnTimerMax)
+        if (spawnTimer >= spawnTimerMax)
         {
             GameObject newPlant = Instantiate(plantPrefab, waypointList[0], Quaternion.identity);
             plantList.Add(newPlant);
             newPlant.GetComponent<Plant>().Setup(waypointList);
 
+            Debug.Log("Spawn timer max: " + spawnTimerMax);
+            Debug.Log("Belt Speed: " + beltSpeed);
             spawnTimer = 0;
         }
     }
@@ -98,5 +111,17 @@ public class ConveyorBelt : MonoBehaviour
         int returnValue = tempLostLives;
         tempLostLives = 0;
         return returnValue;
+    }
+
+    // Scale speed of production line based on score.
+    public void ScaleDifficulty(int score)
+    {
+        spawnTimerMax = spawnTimerMaxStart - score;
+        if (spawnTimerMax < 20)
+        {
+            spawnTimerMax = 20;
+        }
+
+        beltSpeed = beltSpeedStart + (0.007f * (score / 7));
     }
 }
