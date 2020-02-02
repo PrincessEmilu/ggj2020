@@ -14,7 +14,8 @@ public enum GameState
 public enum PlantType
 {
     Staple,
-    Water
+    Water,
+    Paint
 }
 
 public class SceneManager : MonoBehaviour
@@ -33,6 +34,7 @@ public class SceneManager : MonoBehaviour
     // Tools
     private StapleMachine stapleMachine;
     private WaterTool waterTool;
+    private Painttool paintTool;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,7 @@ public class SceneManager : MonoBehaviour
         // Get machines
         stapleMachine = FindObjectOfType<StapleMachine>();
         waterTool = FindObjectOfType<WaterTool>();
+        paintTool = FindObjectOfType<Painttool>();
     }
 
     // Update is called once per frame
@@ -159,6 +162,11 @@ public class SceneManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             waterTool.SpawnWater();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightControl))
+        {
+            paintTool.PressPaint();
         }
     }
 
