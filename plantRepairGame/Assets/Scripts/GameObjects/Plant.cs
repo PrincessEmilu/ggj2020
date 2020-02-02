@@ -17,7 +17,6 @@ public class Plant : MonoBehaviour
     private List<Vector3> waypointList;
     private PlantType plantType;
     public bool isRepaired;
-    private bool isBroken;
     public bool hasPoint; // This is a dumb way of checking if the player gets a point from this plant
 
     private const float safeDistance = 0.01f; // I have no clue what to call this variable
@@ -31,7 +30,6 @@ public class Plant : MonoBehaviour
 
         currentWaypoint = 0;
         isRepaired = false;
-        isBroken = false;
 
         // Disable fixed model
         repairedModel.SetActive(false);
@@ -53,7 +51,6 @@ public class Plant : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<ToolType>().machineType == plantType &&
-            !isBroken &&
             !isRepaired)
         {
             brokenModel.SetActive(false);
@@ -61,11 +58,6 @@ public class Plant : MonoBehaviour
 
             isRepaired = true;
             hasPoint = true;
-        }
-
-        else
-        {
-            isBroken = true;
         }
     }
 
