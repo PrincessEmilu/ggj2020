@@ -14,7 +14,8 @@ public enum GameState
 public enum PlantType
 {
     Staple,
-    Water
+    Water,
+    Paint
 }
 
 public class SceneManager : MonoBehaviour
@@ -33,6 +34,7 @@ public class SceneManager : MonoBehaviour
     // Tools
     private StapleMachine stapleMachine;
     private WaterTool waterTool;
+    private Painttool paintTool;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,7 @@ public class SceneManager : MonoBehaviour
         // Get machines
         stapleMachine = FindObjectOfType<StapleMachine>();
         waterTool = FindObjectOfType<WaterTool>();
+        paintTool = FindObjectOfType<Painttool>();
     }
 
     // Update is called once per frame
@@ -66,6 +69,10 @@ public class SceneManager : MonoBehaviour
                 {
                     currentState = GameState.Playing;
                     uiManager.SetState(currentState);
+                }
+                else if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Application.Quit();
                 }
                 break;
 
@@ -86,18 +93,27 @@ public class SceneManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     currentState = GameState.Paused;
-                    uiManager.TogglePause();
+                    uiManager.SetState(currentState);
                 }
                 break;
 
             case GameState.Paused:
-                // I'm actually not sure what happens here because 
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    currentState = GameState.Playing;
+                    uiManager.SetState(currentState);
+                }
                 break;
 
             case GameState.GameOver:
                 if (Input.GetKeyDown("space"))
                 {
                     ResetGame();
+                }
+                else if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    currentState = GameState.Title;
+                    uiManager.SetState(currentState);
                 }
                 break;
         }
@@ -146,6 +162,11 @@ public class SceneManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             waterTool.SpawnWater();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightControl))
+        {
+            paintTool.PressPaint();
         }
     }
 

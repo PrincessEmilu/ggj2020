@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     private GameState currentState;
     private GUIStyle defaultStyle;
+    private GUIStyle scoreStyle;
     private GUIContent titleContent;
 
     private int score;
@@ -23,6 +24,12 @@ public class UIManager : MonoBehaviour
         defaultStyle = new GUIStyle();
         defaultStyle.fontSize = 48;
         defaultStyle.alignment = TextAnchor.MiddleCenter;
+
+        scoreStyle = new GUIStyle();
+        scoreStyle.fontSize = 48;
+        scoreStyle.alignment = TextAnchor.MiddleLeft;
+        scoreStyle.normal.textColor = Color.white;
+
 
         titleContent = new GUIContent("Press SPACE to play", titleScreen);
     }
@@ -67,11 +74,11 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameState.Playing:
-                GUI.Box(new Rect(0, 0, Screen.width / 3, Screen.height / 3), "Score: " + score + "\nLives: " + lives, defaultStyle);
+                GUI.Label(new Rect(0, Screen.height - Screen.height /3, Screen.width / 3, Screen.height / 3), "Score: " + score + "\nLives: " + lives, scoreStyle);
                 break;
 
             case GameState.Paused:
-
+                GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "Paused!", defaultStyle);
                 break;
 
             case GameState.GameOver:
