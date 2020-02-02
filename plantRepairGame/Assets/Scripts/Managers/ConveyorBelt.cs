@@ -44,8 +44,6 @@ public class ConveyorBelt : MonoBehaviour
             plantList.Add(newPlant);
             newPlant.GetComponent<Plant>().Setup(waypointList);
 
-            Debug.Log("Spawn timer max: " + spawnTimerMax);
-            Debug.Log("Belt Speed: " + beltSpeed);
             spawnTimer = 0;
         }
     }
