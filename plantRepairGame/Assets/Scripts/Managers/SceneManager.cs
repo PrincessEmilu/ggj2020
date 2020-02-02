@@ -154,7 +154,7 @@ public class SceneManager : MonoBehaviour
     // Controls the various tools
     private void UseTools()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.RightControl))
         {
             stapleMachine.PressStaple();
         }
@@ -164,11 +164,9 @@ public class SceneManager : MonoBehaviour
             waterTool.SpawnWater();
         }
 
-        if (Input.GetKeyDown(KeyCode.RightControl))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             paintTool.PressPaint();
         }
     }
-
-
 }
