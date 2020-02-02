@@ -30,7 +30,7 @@ public class Painttool : MonoBehaviour
 
         extendSpeed = 0.1f;
         retractSpeed = 0.2f;
-        startPosition = paintBox.transform.position;
+        startPosition = transform.position;
         endPosition = new Vector3(startPosition.x, startPosition.y - 2.5f, startPosition.z);
     }
 
@@ -40,21 +40,21 @@ public class Painttool : MonoBehaviour
         switch (paintState)
         {
             case PaintState.MoveDown:
-                paintBox.transform.position = Vector3.MoveTowards(paintBox.transform.position, endPosition, extendSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, endPosition, extendSpeed);
 
-                if (paintBox.transform.position.y <= endPosition.y)
+                if (transform.position.y <= endPosition.y)
                 {
-                    paintBox.transform.position = endPosition;
+                    transform.position = endPosition;
                     paintState = PaintState.MoveUp;
                 }
                 break;
 
             case PaintState.MoveUp:
-                paintBox.transform.position = Vector3.MoveTowards(paintBox.transform.position, startPosition, retractSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, startPosition, retractSpeed);
 
-                if (paintBox.transform.position.y >= startPosition.y)
+                if (transform.position.y >= startPosition.y)
                 {
-                    paintBox.transform.position = startPosition;
+                    transform.position = startPosition;
                     paintState = PaintState.Rest;
                 }
                 break;

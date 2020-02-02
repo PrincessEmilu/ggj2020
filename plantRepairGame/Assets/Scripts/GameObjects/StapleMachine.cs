@@ -31,7 +31,7 @@ public class StapleMachine : MonoBehaviour
 
         extendSpeed = 0.2f;
         retractSpeed = 0.1f;
-        startPosition = staple.transform.position;
+        startPosition = gameObject.transform.position;
         endPosition = new Vector3(startPosition.x, startPosition.y - 2.5f, startPosition.z);
     }
 
@@ -41,21 +41,21 @@ public class StapleMachine : MonoBehaviour
         switch (stapleState)
         {
             case StapleState.MoveDown:
-                staple.transform.position = Vector3.MoveTowards(staple.transform.position, endPosition, extendSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, endPosition, extendSpeed);
 
-                if (staple.transform.position.y <= endPosition.y)
+                if (transform.position.y <= endPosition.y)
                 {
-                    staple.transform.position = endPosition;
+                    gameObject.transform.position = endPosition;
                     stapleState = StapleState.MoveUp;
                 }
                 break;
 
             case StapleState.MoveUp:
-                staple.transform.position = Vector3.MoveTowards(staple.transform.position, startPosition, retractSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, startPosition, retractSpeed);
 
-                if (staple.transform.position.y >= startPosition.y)
+                if (transform.position.y >= startPosition.y)
                 {
-                    staple.transform.position = startPosition;
+                    gameObject.transform.position = startPosition;
                     stapleState = StapleState.Rest;
                 }
                 break;
