@@ -30,6 +30,11 @@ public class SceneManager : MonoBehaviour
     private int score;
     private GameState currentState;
 
+    // audio
+    public AudioSource audioSource;
+
+    public AudioClip titleMusic;
+    public AudioClip playGameClip;
 
     // Tools
     private StapleMachine stapleMachine;
@@ -39,6 +44,10 @@ public class SceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.Play();
+
         // Game states
         currentState = GameState.Title;
         lives = 5;
@@ -69,6 +78,8 @@ public class SceneManager : MonoBehaviour
                 {
                     currentState = GameState.Playing;
                     uiManager.SetState(currentState);
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(playGameClip, 0.25f);
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -109,6 +120,7 @@ public class SceneManager : MonoBehaviour
                 if (Input.GetKeyDown("space"))
                 {
                     ResetGame();
+                    audioSource.PlayOneShot(titleMusic, 0.25f);
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape))
                 {

@@ -21,9 +21,16 @@ public class Plant : MonoBehaviour
 
     private const float safeDistance = 0.01f; // I have no clue what to call this variable
 
+    private AudioSource soundSource;
+    public AudioClip stapleSound;
+    public AudioClip paintSound;
+    public AudioClip waterSound;
+
     // Setup plant type
     public void Setup(List<Vector3> waypoints)
     {
+        soundSource = gameObject.GetComponent<AudioSource>();
+
         SetPlantType();
 
         this.waypointList = waypoints;
@@ -58,6 +65,20 @@ public class Plant : MonoBehaviour
 
             isRepaired = true;
             hasPoint = true;
+        }
+
+        // Play corect sound
+        switch (plantType)
+        {
+            case PlantType.Paint:
+                soundSource.PlayOneShot(paintSound);
+                break;
+            case PlantType.Staple:
+                soundSource.PlayOneShot(stapleSound);
+                break;
+            case PlantType.Water:
+                soundSource.PlayOneShot(waterSound);
+                break;
         }
     }
 
